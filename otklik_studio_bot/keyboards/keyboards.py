@@ -36,7 +36,7 @@ btn_location = InlineKeyboardButton(
 
 btn_contacts = InlineKeyboardButton(
     text=LEXICON_RU['contacts'],
-    callback_data='btn_about_studio_pressed'
+    callback_data='btn_about_contacts_pressed'
 )
 
 # Инициализируем билдер для клавиатуры с первичным набором кнопок
@@ -80,17 +80,64 @@ btn_choose_session_pay = InlineKeyboardButton(
     text=LEXICON_RU['choose_session_pay'],
     url='https://n1035709.yclients.com/company/960077/personal/select-time?')
 
+# --- Создаем кнопку вернуться назад, которую мб добавим в клавиатуры ---
+btn_come_back = InlineKeyboardButton(
+    text=LEXICON_RU['come_back'],
+    callback_data='btn_come_back_pressed'
+)
+
 # Создаем объект инлайн-клавиатуры
 kb_fotosessions = InlineKeyboardMarkup(
-    inline_keyboard=[[btn_choose_session_pay], [btn_certificates]]
+    inline_keyboard=[[btn_choose_session_pay], [btn_certificates], [btn_come_back]]
 )
 
 # --- Создаем клавиатуру, которую отображаем на нажатие кнопки 'certificates' ---
 btn_certificates = InlineKeyboardButton(
     text=LEXICON_RU['bye_sertificate'],
     url='https://n1035709.yclients.com/company/960077/personal/select-services?')
-
+# В этой клавиатуре kb_certificates тоже используем кнопку вернуться назад  btn_come_back---
 # Создаем объект инлайн-клавиатуры
 kb_certificates = InlineKeyboardMarkup(
-    inline_keyboard=[[btn_certificates], [btn_fotosessions]]
+    inline_keyboard=[[btn_certificates], [btn_fotosessions], [btn_come_back]]
+)
+
+# --- Создаем клавиатуру через InlineKeyboardBuilder---
+# --- клавиатуру, которую отображаем на нажатие кнопки 'contacts' ---
+
+# Создаем кнопки клавиатуры
+btn_email = InlineKeyboardButton(
+    text=LEXICON_RU['email'],
+    url='mailto:milena77756@yandex.ru' #Эта нопка давала ошибку- адрес инвалид, пришлось убрать из клавы
+)
+
+btn_instagram = InlineKeyboardButton(
+    text=LEXICON_RU['instagram'],
+    url='https://www.instagram.com/otklik.studio?igsh=MTZyY3RxeW4zMW80MA%3D%3D&utm_source=qr'
+)
+
+btn_whatsapp = InlineKeyboardButton(
+    text=LEXICON_RU['whatsapp'],
+    url='https://api.whatsapp.com/send/?phone=79605209672&text&type=phone_number&app_absent=0'
+)
+
+btn_telegram = InlineKeyboardButton(
+    text=LEXICON_RU['telegram'],
+    url='https://t.me/otklik40'
+)
+
+btn_vkontakte = InlineKeyboardButton(
+    text=LEXICON_RU['vkontakte'],
+    url='https://vk.com/club224538241'
+)
+contacts_kb_builder = InlineKeyboardBuilder()
+
+contacts_kb_builder.row(btn_vkontakte, btn_telegram, btn_whatsapp, btn_instagram, btn_come_back)
+
+# Явно сообщаем билдеру сколько хотим видеть кнопок в рядах
+contacts_kb_builder.adjust(2, 2, 1, 1)
+
+#Создаем клавиатуру
+contacts_kb: InlineKeyboardMarkup = contacts_kb_builder.as_markup(
+    one_time_keyboard=True,
+    resize_keyboard=True
 )
