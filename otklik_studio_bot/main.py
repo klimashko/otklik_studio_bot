@@ -4,7 +4,7 @@ import logging
 from aiogram import Bot, Dispatcher
 from config_data.config import Config, load_config
 from handlers import other_handlers, user_handlers
-from rock_paper_scissors_bot.keyboards.set_menu import set_main_menu
+from otklik_studio_bot.keyboards.set_menu import set_main_menu
 
 # Инициализируем логгер
 logger = logging.getLogger(__name__)
