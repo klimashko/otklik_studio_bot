@@ -141,3 +141,10 @@ contacts_kb: InlineKeyboardMarkup = contacts_kb_builder.as_markup(
     one_time_keyboard=True,
     resize_keyboard=True
 )
+
+# --- Создаем клавиатуру, которую отображаем на нажатие кнопки 'about_studio' ---
+# В этой клавиатуре ut_studio тоже используем кнопку вернуться назад  btn_come_back---
+# Создаем объект инлайн-клавиатуры
+kb_about_studio = InlineKeyboardMarkup(
+    inline_keyboard=[[btn_come_back]]
+)
