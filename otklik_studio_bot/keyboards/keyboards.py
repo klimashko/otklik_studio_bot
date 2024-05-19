@@ -1,5 +1,5 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 
@@ -14,6 +14,12 @@ btn_about_studio = InlineKeyboardButton(
     text=LEXICON_RU['about_studio'],
     callback_data='btn_about_studio_pressed'
 )
+
+btn_faq = InlineKeyboardButton(
+    text=LEXICON_RU['faq'],
+    callback_data='btn_faq_pressed'
+)
+
 btn_book_a_photoshoot = InlineKeyboardButton(
     text=LEXICON_RU['book_a_photoshoot'],
     url='https://n1035709.yclients.com/company/960077/personal/select-time?')
@@ -43,13 +49,48 @@ btn_contacts = InlineKeyboardButton(
 primary_kb_builder = InlineKeyboardBuilder()
 
 # Добавляем кнопки в билдер с аргументом width=1
-primary_kb_builder.row(btn_about_studio, btn_book_a_photoshoot, btn_bye_sertificate, btn_services_prices, btn_location, btn_contacts, width=1)
+primary_kb_builder.row(btn_about_studio, btn_faq, btn_book_a_photoshoot, btn_bye_sertificate, btn_services_prices, btn_location, btn_contacts, width=1)
 
 # Создаем клавиатуру с первичным набором кнопок
 primary_kb: InlineKeyboardMarkup = primary_kb_builder.as_markup(
     one_time_keyboard=True,
     resize_keyboard=True
 )
+
+
+# --- Создаем клавиатуру, которую отображаем на нажатие кнопки 'faq'
+# ---через InlineKeyboardBuilder-
+
+# --- Создаем кнопку вернуться назад, которую мб добавим в клавиатуры ---
+btn_come_back = InlineKeyboardButton(
+    text=LEXICON_RU['come_back'],
+    callback_data='btn_come_back_pressed'
+)
+
+# # --- Создаем кнопку, чтобы перейти к следующему вопросу ---
+# btn_next_question = InlineKeyboardButton(
+#     text=LEXICON_RU['mock_for_btn_next_question'],
+#     callback_data='btn_next_question_pressed'
+# )
+
+# Список для хранения всех кнопок вопросов с 1по 11 с использованием list comprehension
+faq_buttons = [
+    InlineKeyboardButton(
+        text=LEXICON_RU[str(i)],
+        callback_data=f'btn_question_{i}_pressed'
+    ) for i in range(1, 12)
+]
+
+# Создание билдера для клавиатуры, которая отображается при нажатии кнопки 'faq'
+faq_kb_builder = InlineKeyboardBuilder()
+
+# Добавление кнопок в билдер
+faq_kb_builder.row(*faq_buttons, btn_come_back)
+faq_kb_builder.adjust(3, 3, 3, 2, 1) #Указали сколько кнопок будет в рядах
+
+# Получение разметки клавиатуры
+faq_keyboard = faq_kb_builder.as_markup(resize_keyboard=True)
+
 
 # --- Создаем клавиатуру через InlineKeyboardBuilder---
 # --- клавиатуру, которую отображаем на нажатие кнопки 'services_prices' ---
