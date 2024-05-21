@@ -1,12 +1,11 @@
+import os
 from aiogram import F, Router
-from aiogram.types import CallbackQuery
+from aiogram.types import CallbackQuery, InputFile, URLInputFile, FSInputFile
 from aiogram.filters import Command, CommandStart
 from aiogram.types import Message
-from typing import List
-from otklik_studio_bot.keyboards.keyboards import primary_kb, services_prices_kb, kb_fotosessions, kb_certificates, contacts_kb, kb_about_studio, faq_keyboard, faq_answer_keyboard
+from otklik_studio_bot.keyboards.keyboards import primary_kb, services_prices_kb, kb_fotosessions, \
+    kb_certificates, contacts_kb, kb_about_studio, faq_keyboard, faq_answer_keyboard
 from otklik_studio_bot.lexicon.lexicon_ru import LEXICON_RU, LEXICON_FAQ_RU
-from otklik_studio_bot.services.services import get_bot_choice, get_winner
-from otklik_studio_bot.services.score_service import score_counter, list_counter
 
 router = Router()
 
@@ -14,7 +13,18 @@ router = Router()
 # Этот хэндлер срабатывает на команду /start
 @router.message(CommandStart())
 async def process_start_command(message: Message):
-    await message.answer(text=LEXICON_RU['/start'], reply_markup=primary_kb)
+    current_dir = os.path.dirname(os.path.abspath(
+        __file__))  # Получение абсолютного пути к директории, в которой находится текущий файл
+    project_dir = os.path.abspath(
+        os.path.join(current_dir, '..'))  # Подъем на уровень выше (в директорию otklik_studio_bot)
+    photo_path = os.path.join(project_dir, 'resources',
+                              'photo_start.png')  # Формирование пути к файлу относительно корневой директории проекта
+
+    await message.answer_photo(
+        photo=FSInputFile(photo_path),
+        caption=LEXICON_RU['/start'],
+        reply_markup=primary_kb
+    )
 
 
 # Этот хэндлер будет срабатывать на кнопку 'about_studio'
@@ -25,7 +35,8 @@ async def process_btn_about_studio_pressed(callback: CallbackQuery):
     await callback.message.answer(
         text=LEXICON_RU['text_about_studio'],
         reply_markup=kb_about_studio
-)
+    )
+
 
 # Этот хэндлер будет срабатывать на кнопку 'faq'
 # и отправлять в чат текст с пронумерованными вопросами и клавиатуру с кнопками "Вернуться назад"
@@ -35,7 +46,8 @@ async def process_btn_faq_pressed(callback: CallbackQuery):
     await callback.message.answer(
         text=LEXICON_FAQ_RU['text_faq'],
         reply_markup=faq_keyboard
-)
+    )
+
 
 # Этот хэндлер будет срабатывать на кнопку 'contacts'
 # и отправлять в чат клавиатуру с инлайн-кнопками
@@ -45,8 +57,7 @@ async def process_btn_contacts_pressed(callback: CallbackQuery):
     await callback.message.answer(
         text=LEXICON_RU['text_about_contacts'],
         reply_markup=contacts_kb
-)
-
+    )
 
 
 # Этот хэндлер будет срабатывать на кнопку 'services_prices'
@@ -57,7 +68,7 @@ async def process_btn_services_prices_pressed(callback: CallbackQuery):
     await callback.message.answer(
         text=LEXICON_RU['text_services_prices'],
         reply_markup=services_prices_kb
-)
+    )
 
 
 # Этот хэндлер будет срабатывать на кнопку 'fotosessions'
@@ -101,6 +112,7 @@ def create_faq_question_handler(i):
 
 for i in range(1, 12):
     create_faq_question_handler(i)
+
 
 # Этот хэндлер будет срабатывать на кнопку 'btn_come_back_faq_list'
 # скрывать предыдущее сообщение и таким образом вернулись к списку вопросов

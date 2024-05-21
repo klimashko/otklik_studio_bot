@@ -1,10 +1,7 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from otklik_studio_bot.lexicon.lexicon_ru import LEXICON_RU, LEXICON_FAQ_RU
-
 
 # ------- Создаем клавиатуру через InlineKeyboardBuilder-------
 # ------- клавиатуру, которую отображаем на команду /start -------
@@ -54,7 +51,8 @@ primary_kb_builder = InlineKeyboardBuilder()
 
 # Добавляем кнопки в билдер с аргументом width=1
 primary_kb_builder.row(
-    btn_about_studio, btn_video_guide, btn_faq, btn_book_a_photoshoot, btn_bye_sertificate, btn_services_prices,
+    btn_about_studio, btn_video_guide, btn_faq, btn_book_a_photoshoot, btn_bye_sertificate,
+    btn_services_prices,
     btn_location, btn_contacts, width=1)
 
 # Создаем клавиатуру с первичным набором кнопок
@@ -62,7 +60,6 @@ primary_kb: InlineKeyboardMarkup = primary_kb_builder.as_markup(
     one_time_keyboard=True,
     resize_keyboard=True
 )
-
 
 # --- Создаем клавиатуру, которую отображаем на нажатие кнопки 'faq'
 # ---через InlineKeyboardBuilder-
@@ -86,13 +83,13 @@ faq_kb_builder = InlineKeyboardBuilder()
 
 # Добавление кнопок в билдер
 faq_kb_builder.row(*faq_buttons, btn_come_back)
-faq_kb_builder.adjust(3, 3, 3, 2, 1) #Указали сколько кнопок будет в рядах
+faq_kb_builder.adjust(3, 3, 3, 2, 1)  # Указали сколько кнопок будет в рядах
 
 # Создаем клавиатуру FAQ
 faq_keyboard: InlineKeyboardMarkup = faq_kb_builder.as_markup(resize_keyboard=True)
 
 # Создаем кнопку и клавиатуру, которая будет отображаться,
-# при нажатии на кнопку вопроса FAQ
+# при нажатии на кнопку Вернуться назад
 btn_come_back_faq_list = InlineKeyboardButton(
     text=LEXICON_FAQ_RU['come_back_faq_list'],
     callback_data='btn_come_back_faq_list_pressed'
@@ -101,7 +98,6 @@ btn_come_back_faq_list = InlineKeyboardButton(
 faq_answer_keyboard = InlineKeyboardMarkup(
     inline_keyboard=[[btn_come_back_faq_list]]
 )
-
 
 # --- Создаем клавиатуру через InlineKeyboardBuilder---
 # --- клавиатуру, которую отображаем на нажатие кнопки 'services_prices' ---
@@ -126,17 +122,13 @@ services_prices_kb: InlineKeyboardMarkup = services_prices_kb_builder.as_markup(
     resize_keyboard=True
 )
 
-
 # --- Создаем клавиатуру, которую отображаем на нажатие кнопки 'fotosessions' ---
 btn_choose_session_pay = InlineKeyboardButton(
     text=LEXICON_RU['choose_session_pay'],
     url='https://n1035709.yclients.com/company/960077/personal/select-time?')
 
 # --- Создаем кнопку вернуться назад, которую мб добавим в клавиатуры ---
-btn_come_back = InlineKeyboardButton(
-    text=LEXICON_RU['come_back'],
-    callback_data='btn_come_back_pressed'
-)
+# btn_come_back уже создана выше строка 71
 
 # Создаем объект инлайн-клавиатуры
 kb_fotosessions = InlineKeyboardMarkup(
@@ -159,7 +151,7 @@ kb_certificates = InlineKeyboardMarkup(
 # Создаем кнопки клавиатуры
 btn_email = InlineKeyboardButton(
     text=LEXICON_RU['email'],
-    url='mailto:milena77756@yandex.ru' #Эта нопка давала ошибку- адрес инвалид, пришлось убрать из клавы
+    url='mailto:milena77756@yandex.ru'  # Эта нопка давала ошибку- адрес инвалид, пришлось убрать из клавы
 )
 
 btn_instagram = InlineKeyboardButton(
@@ -188,7 +180,7 @@ contacts_kb_builder.row(btn_vkontakte, btn_telegram, btn_whatsapp, btn_instagram
 # Явно сообщаем билдеру сколько хотим видеть кнопок в рядах
 contacts_kb_builder.adjust(2, 2, 1, 1)
 
-#Создаем клавиатуру
+# Создаем клавиатуру
 contacts_kb: InlineKeyboardMarkup = contacts_kb_builder.as_markup(
     one_time_keyboard=True,
     resize_keyboard=True
