@@ -3,7 +3,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 
-from otklik_studio_bot.lexicon.lexicon_ru import LEXICON_RU
+from otklik_studio_bot.lexicon.lexicon_ru import LEXICON_RU, LEXICON_FAQ_RU
 
 
 # ------- Создаем клавиатуру через InlineKeyboardBuilder-------
@@ -61,7 +61,7 @@ primary_kb: InlineKeyboardMarkup = primary_kb_builder.as_markup(
 # --- Создаем клавиатуру, которую отображаем на нажатие кнопки 'faq'
 # ---через InlineKeyboardBuilder-
 
-# --- Создаем кнопку вернуться назад, которую мб добавим в клавиатуры ---
+# --- Создаем кнопку вернуться назад, которую добавим в клавиатуру ---
 btn_come_back = InlineKeyboardButton(
     text=LEXICON_RU['come_back'],
     callback_data='btn_come_back_pressed'
@@ -73,10 +73,10 @@ btn_come_back = InlineKeyboardButton(
 #     callback_data='btn_next_question_pressed'
 # )
 
-# Список для хранения всех кнопок вопросов с 1по 11 с использованием list comprehension
+# Список для хранения всех кнопок вопросов с 1 по 11 с использованием list comprehension
 faq_buttons = [
     InlineKeyboardButton(
-        text=LEXICON_RU[str(i)],
+        text=LEXICON_FAQ_RU[str(i)],
         callback_data=f'btn_question_{i}_pressed'
     ) for i in range(1, 12)
 ]
@@ -88,8 +88,19 @@ faq_kb_builder = InlineKeyboardBuilder()
 faq_kb_builder.row(*faq_buttons, btn_come_back)
 faq_kb_builder.adjust(3, 3, 3, 2, 1) #Указали сколько кнопок будет в рядах
 
-# Получение разметки клавиатуры
-faq_keyboard = faq_kb_builder.as_markup(resize_keyboard=True)
+# Создаем клавиатуру FAQ
+faq_keyboard: InlineKeyboardMarkup = faq_kb_builder.as_markup(resize_keyboard=True)
+
+# Создаем кнопку и клавиатуру, которая будет отображаться,
+# при нажатии на кнопку вопроса FAQ
+btn_come_back_faq_list = InlineKeyboardButton(
+    text=LEXICON_FAQ_RU['come_back_faq_list'],
+    callback_data='btn_come_back_faq_list_pressed'
+)
+
+faq_answer_keyboard = InlineKeyboardMarkup(
+    inline_keyboard=[[btn_come_back_faq_list]]
+)
 
 
 # --- Создаем клавиатуру через InlineKeyboardBuilder---
