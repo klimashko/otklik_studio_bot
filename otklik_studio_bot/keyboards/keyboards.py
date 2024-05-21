@@ -49,7 +49,9 @@ btn_contacts = InlineKeyboardButton(
 primary_kb_builder = InlineKeyboardBuilder()
 
 # Добавляем кнопки в билдер с аргументом width=1
-primary_kb_builder.row(btn_about_studio, btn_faq, btn_book_a_photoshoot, btn_bye_sertificate, btn_services_prices, btn_location, btn_contacts, width=1)
+primary_kb_builder.row(
+    btn_about_studio, btn_faq, btn_book_a_photoshoot, btn_bye_sertificate, btn_services_prices,
+    btn_location, btn_contacts, width=1)
 
 # Создаем клавиатуру с первичным набором кнопок
 primary_kb: InlineKeyboardMarkup = primary_kb_builder.as_markup(
@@ -66,12 +68,6 @@ btn_come_back = InlineKeyboardButton(
     text=LEXICON_RU['come_back'],
     callback_data='btn_come_back_pressed'
 )
-
-# # --- Создаем кнопку, чтобы перейти к следующему вопросу ---
-# btn_next_question = InlineKeyboardButton(
-#     text=LEXICON_RU['mock_for_btn_next_question'],
-#     callback_data='btn_next_question_pressed'
-# )
 
 # Список для хранения всех кнопок вопросов с 1 по 11 с использованием list comprehension
 faq_buttons = [

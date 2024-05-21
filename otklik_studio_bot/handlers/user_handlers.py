@@ -33,7 +33,7 @@ async def process_btn_about_studio_pressed(callback: CallbackQuery):
 async def process_btn_faq_pressed(callback: CallbackQuery):
     await callback.answer()
     await callback.message.answer(
-        text=LEXICON_RU['text_faq'],
+        text=LEXICON_FAQ_RU['text_faq'],
         reply_markup=faq_keyboard
 )
 
@@ -87,30 +87,6 @@ async def process_btn_come_back_pressed(callback: CallbackQuery):
     await callback.message.delete()
 
 
-# # Этот хэндлер срабатывает на любую из игровых кнопок
-# @router.message(F.text.in_([LEXICON_RU['rock'],
-#                             LEXICON_RU['paper'],
-#                             LEXICON_RU['scissors']]))
-# async def process_game_button(message: Message):
-#     bot_choice = get_bot_choice()
-#     await message.answer(text=f'{LEXICON_RU["bot_choice"]} '
-#                               f'- {LEXICON_RU[bot_choice]}')
-#     winner = get_winner(message.text, bot_choice)
-#     # score_service
-#     list_counter.append(winner)
-#     await message.answer(text=LEXICON_RU[winner], reply_markup=yes_no_kb)
-
-
-# # Этот хэндлер будет срабатывать на кнопку '1', те 1 вопрос из FAQ
-# # и отправлять в чат сообщение - ответ на 1 вопрос и  инлайн-кнопку Вернуться к списку вопросов
-# @router.callback_query(F.data == 'btn_question_1_pressed')
-# async def process_btn_question_1_pressed(callback: CallbackQuery):
-#     await callback.answer()
-#     await callback.message.answer(
-#         text=LEXICON_FAQ_RU['1_faq_answer_text'],
-#         reply_markup=faq_answer_keyboard
-#     )
-
 # В цикле создадим хэндлеры, которые срабатывают на кнопки вопросоов faq '1' - '11', те 1 вопрос из FAQ
 # и отправлять в чат сообщение - ответ на i вопрос и  инлайн-кнопку Вернуться к списку вопросов
 def create_faq_question_handler(i):
@@ -121,6 +97,7 @@ def create_faq_question_handler(i):
             text=LEXICON_FAQ_RU[f'{i}_faq_answer_text'],
             reply_markup=faq_answer_keyboard
         )
+
 
 for i in range(1, 12):
     create_faq_question_handler(i)
