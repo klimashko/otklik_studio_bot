@@ -15,6 +15,10 @@ btn_about_studio = InlineKeyboardButton(
     callback_data='btn_about_studio_pressed'
 )
 
+btn_video_guide = InlineKeyboardButton(
+    text=LEXICON_RU['video_guide'],
+    url='https://www.instagram.com/p/C48CPTPIftr/')
+
 btn_faq = InlineKeyboardButton(
     text=LEXICON_RU['faq'],
     callback_data='btn_faq_pressed'
@@ -50,7 +54,7 @@ primary_kb_builder = InlineKeyboardBuilder()
 
 # Добавляем кнопки в билдер с аргументом width=1
 primary_kb_builder.row(
-    btn_about_studio, btn_faq, btn_book_a_photoshoot, btn_bye_sertificate, btn_services_prices,
+    btn_about_studio, btn_video_guide, btn_faq, btn_book_a_photoshoot, btn_bye_sertificate, btn_services_prices,
     btn_location, btn_contacts, width=1)
 
 # Создаем клавиатуру с первичным набором кнопок
