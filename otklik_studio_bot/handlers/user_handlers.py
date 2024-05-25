@@ -18,7 +18,7 @@ async def process_start_command(message: Message):
     project_dir = os.path.abspath(
         os.path.join(current_dir, '..'))  # Подъем на уровень выше (в директорию otklik_studio_bot)
     photo_path = os.path.join(project_dir, 'resources',
-                              'photo_start.png')  # Формирование пути к файлу относительно корневой директории проекта
+                              'photo_start_old.png')  # Формирование пути к файлу относительно корневой директории проекта
 
     await message.answer_photo(
         photo=FSInputFile(photo_path),
