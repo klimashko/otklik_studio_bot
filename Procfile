@@ -1,1 +1,1 @@
-worker: python3 main.py
+worker: python3 otklik_studio_bot/main.py
