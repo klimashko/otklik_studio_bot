@@ -3,9 +3,9 @@ from aiogram import F, Router
 from aiogram.types import CallbackQuery, InputFile, URLInputFile, FSInputFile
 from aiogram.filters import Command, CommandStart
 from aiogram.types import Message
-from otklik_studio_bot.keyboards.keyboards import primary_kb, services_prices_kb, kb_fotosessions, \
+from keyboards.keyboards import primary_kb, services_prices_kb, kb_fotosessions, \
     kb_certificates, contacts_kb, kb_about_studio, faq_keyboard, faq_answer_keyboard
-from otklik_studio_bot.lexicon.lexicon_ru import LEXICON_RU, LEXICON_FAQ_RU
+from lexicon.lexicon_ru import LEXICON_RU, LEXICON_FAQ_RU
 
 router = Router()
 

@@ -1,7 +1,7 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from otklik_studio_bot.lexicon.lexicon_ru import LEXICON_RU, LEXICON_FAQ_RU
+from lexicon.lexicon_ru import LEXICON_RU, LEXICON_FAQ_RU
 
 # ------- Создаем клавиатуру через InlineKeyboardBuilder-------
 # ------- клавиатуру, которую отображаем на команду /start -------
